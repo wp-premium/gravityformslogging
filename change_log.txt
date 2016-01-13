@@ -1,0 +1,7 @@
+----------------------------------------------------------------------------------
+Version 1.0
+    - Fixed issue with uninstall not deleting log files
+
+----------------------------------------------------------------------------------
+Version 1.0.alpha2
+    - Fixed issue when reading log level that caused log file not be created
