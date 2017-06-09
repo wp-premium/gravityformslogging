@@ -3,10 +3,10 @@
 	/* Finally, A light, permissions-checking logging class. 
 	 * 
 	 * Author	: Kenneth Katzgrau < katzgrau@gmail.com >
-	 * Date	: July 26, 2008
+	 * Date	    : July 26, 2008
 	 * Comments	: Originally written for use with wpSearch
 	 * Website	: http://codefury.net
-	 * Version	: 1.0
+	 * Version	: 0.2m
 	 *
 	 * Usage: 
 	 *		$log = new KLogger ( "log.txt" , KLogger::INFO );
@@ -125,8 +125,16 @@
 		private function getTimeLine( $level )
 		{
 			
-			$time = gmdate($this->DateFormat, time() + $this->offset);
-		
+			if ( class_exists( 'DateTime' ) ) {
+				$original_time = microtime( true ) + $this->offset;
+				$microtime     = sprintf( '%06d', ( $original_time - floor( $original_time ) ) * 1000000 );
+				$date          = new DateTime( date( 'Y-m-d H:i:s.' . $microtime, $original_time ) );
+				$time          = $date->format( $this->DateFormat );
+			
+			} else {
+				$time          = gmdate($this->DateFormat, time() + $this->offset);
+			}
+			
 			switch( $level )
 			{
 				case KLogger::INFO:
